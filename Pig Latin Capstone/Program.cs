@@ -90,9 +90,16 @@ namespace Pig_Latin_Capstone
                 return word;
             }
 
+            bool upperCase = word.ToUpper().Equals(word);
+            bool lowerCase = word.ToLower().Equals(word);
+            bool titleCase = !upperCase && !lowerCase;// my assumption
+
+            // per requirement to lowercase the word
+            word = word.ToLower();
+
             String plWord = word;
             char firstChar = word[0];
-            string vowels = "aeiouAEIOU";
+            string vowels = "aeiou";
             
             if (vowels.Contains(firstChar) )
             {
@@ -104,7 +111,16 @@ namespace Pig_Latin_Capstone
                 plWord = word.Substring(firstVowel) + word.Substring(0, firstVowel) + "ay";
             }
 
-            return plWord;
+            if (upperCase)
+                return plWord.ToUpper();
+            else if (titleCase)
+            {
+                return char.ToUpper(plWord[0]) + plWord.Substring(1);
+            }
+            else //lowercase to begin with
+            {
+                return plWord;
+            }
         }
 
         static bool RunAgain(string sentence, string cont)
